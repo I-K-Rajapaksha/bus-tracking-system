@@ -1,0 +1,104 @@
+# .htaccess Configuration
+# Bus Arrival and Departure Tracking System
+
+# Prevent directory browsing
+Options -Indexes
+
+# Set default charset
+AddDefaultCharset UTF-8
+
+# Enable rewrite engine
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /Terminal%20POS/
+    
+    # Redirect to HTTPS (uncomment in production)
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
+    # Redirect to login if accessing root
+    # (handled by index.php instead)
+</IfModule>
+
+# Protect sensitive files
+<FilesMatch "^(config\.php|database\.php|\.env)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protect database file
+<FilesMatch "\.(sql|db|sqlite)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Set custom error pages (create these pages if needed)
+# ErrorDocument 404 /Terminal%20POS/404.php
+# ErrorDocument 403 /Terminal%20POS/403.php
+# ErrorDocument 500 /Terminal%20POS/500.php
+
+# Disable server signature
+ServerSignature Off
+
+# Set security headers
+<IfModule mod_headers.c>
+    # Prevent clickjacking
+    Header set X-Frame-Options "SAMEORIGIN"
+    
+    # Prevent MIME sniffing
+    Header set X-Content-Type-Options "nosniff"
+    
+    # Enable XSS protection
+    Header set X-XSS-Protection "1; mode=block"
+    
+    # Referrer policy
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # Content Security Policy (adjust as needed)
+    # Header set Content-Security-Policy "default-src 'self'"
+</IfModule>
+
+# Compress output for better performance
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript
+</IfModule>
+
+# Set caching for static resources
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # Images
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    
+    # CSS and JavaScript
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    
+    # Fonts
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/otf "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+</IfModule>
+
+# Limit upload file size (adjust as needed)
+php_value upload_max_filesize 10M
+php_value post_max_size 10M
+
+# Set session timeout
+php_value session.gc_maxlifetime 3600
+
+# Disable PHP error display (enable only for development)
+# php_flag display_errors Off
+# php_flag display_startup_errors Off
+
+# Enable error logging
+php_flag log_errors On
+php_value error_log logs/php_error.log

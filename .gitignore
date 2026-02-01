@@ -1,0 +1,51 @@
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE/Editor Files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+
+# PHP
+vendor/
+composer.phar
+composer.lock
+
+# Configuration (sensitive data)
+# Note: includes/config.php contains database credentials
+# Users must configure this file after cloning
+includes/config.php.local
+
+# Logs
+*.log
+logs/
+error_log
+
+# Temporary Files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Upload Directories (if any)
+uploads/
+temp/
+
+# Cache
+cache/
+*.cache
+
+# Backup Files
+*.bak
+*.backup
+*.sql.gz
+backup_*.sql
+
+# System Files
+php_errors.log
+.htaccess.bak

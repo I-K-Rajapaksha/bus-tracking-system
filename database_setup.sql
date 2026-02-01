@@ -11,6 +11,9 @@ USE terminal_tracking_system;
 -- ============================================================
 -- Table: users
 -- Description: User accounts with role-based access control
+-- Flexible server
+-- Administrator login = bustrackadmin
+-- Password = Isu@0724
 -- ============================================================
 CREATE TABLE IF NOT EXISTS users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,

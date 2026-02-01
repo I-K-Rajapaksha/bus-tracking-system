@@ -11,10 +11,12 @@ if (!defined('APP_NAME')) {
 }
 
 // Database Configuration
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');  // Change this to your MySQL username
-define('DB_PASS', '');      // Change this to your MySQL password
-define('DB_NAME', 'terminal_tracking_system');
+// Use Azure environment variables if available, otherwise fallback to localhost
+define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+define('DB_USER', getenv('DB_USER') ?: 'root');
+define('DB_PASS', getenv('DB_PASS') ?: '');
+define('DB_NAME', getenv('DB_NAME') ?: 'terminal_tracking_system');
+define('DB_PORT', getenv('DB_PORT') ?: '3306');
 define('DB_CHARSET', 'utf8mb4');
 
 // Application Settings

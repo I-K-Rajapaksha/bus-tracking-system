@@ -50,9 +50,17 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Error reporting (disable in production)
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Error reporting - disable in production for security
+if (getenv('WEBSITE_SITE_NAME')) {
+    // Production (Azure) - log errors, don't display
+    error_reporting(E_ALL);
+    ini_set('display_errors', 0);
+    ini_set('log_errors', 1);
+} else {
+    // Development (Local) - show all errors
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+}
 
 // Auto-logout on session timeout
 if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > SESSION_TIMEOUT)) {

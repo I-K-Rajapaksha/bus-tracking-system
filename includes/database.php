@@ -39,6 +39,16 @@ class Database {
             $this->conn = new PDO($dsn, $this->user, $this->pass, $options);
         } catch (PDOException $e) {
             $this->error = $e->getMessage();
+            
+            // In production, redirect to friendly error page
+            if (getenv('WEBSITE_SITE_NAME')) {
+                // Azure production - redirect to error page
+                if (!strpos($_SERVER['PHP_SELF'], 'test_connection.php') && !strpos($_SERVER['PHP_SELF'], 'db_error.php')) {
+                    header('Location: db_error.php');
+                    exit;
+                }
+            }
+            
             die("Database Connection Failed: " . $this->error);
         }
     }

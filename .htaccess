@@ -10,11 +10,12 @@ AddDefaultCharset UTF-8
 # Enable rewrite engine
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /Terminal%20POS/
+    RewriteBase /
     
-    # Redirect to HTTPS (uncomment in production)
-    # RewriteCond %{HTTPS} off
-    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    # Force HTTPS on Azure
+    RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
     
     # Redirect to login if accessing root
     # (handled by index.php instead)

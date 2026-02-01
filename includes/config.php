@@ -20,7 +20,14 @@ define('DB_PORT', getenv('DB_PORT') ?: '3306');
 define('DB_CHARSET', 'utf8mb4');
 
 // Application Settings
-define('SITE_URL', 'http://localhost/Terminal%20POS');
+// Auto-detect if running on Azure and use HTTPS
+if (getenv('WEBSITE_SITE_NAME')) {
+    // Running on Azure
+    define('SITE_URL', 'https://' . getenv('WEBSITE_SITE_NAME') . '.azurewebsites.net');
+} else {
+    // Running locally
+    define('SITE_URL', 'http://localhost/Terminal%20POS');
+}
 define('TIMEZONE', 'Asia/Colombo');
 define('DATE_FORMAT', 'Y-m-d H:i:s');
 define('SESSION_TIMEOUT', 3600); // 1 hour in seconds

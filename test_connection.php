@@ -119,6 +119,39 @@ if (session_status() === PHP_SESSION_ACTIVE) {
 }
 echo "<br>";
 
+// Test 8: Role-Based Access
+echo "<h2>8. Role-Based Access Control Test</h2>";
+echo "<strong>Checking role definitions...</strong><br>";
+$roles = [
+    'ROLE_SUPER_ADMIN' => defined('ROLE_SUPER_ADMIN') ? ROLE_SUPER_ADMIN : 'Not defined',
+    'ROLE_TERMINAL_IN' => defined('ROLE_TERMINAL_IN') ? ROLE_TERMINAL_IN : 'Not defined',
+    'ROLE_TERMINAL_OUT' => defined('ROLE_TERMINAL_OUT') ? ROLE_TERMINAL_OUT : 'Not defined',
+    'ROLE_REPORT_VIEWER' => defined('ROLE_REPORT_VIEWER') ? ROLE_REPORT_VIEWER : 'Not defined'
+];
+foreach ($roles as $constant => $value) {
+    echo "<strong>{$constant}:</strong> {$value} " . ($value !== 'Not defined' ? '✅' : '❌') . "<br>";
+}
+echo "<br>";
+
+// Test 9: Critical Pages Exist
+echo "<h2>9. Critical Pages Check</h2>";
+$critical_pages = [
+    'login.php' => 'Login page',
+    'dashboard.php' => 'Dashboard',
+    'modules/terminal_in/index.php' => 'Terminal IN',
+    'modules/terminal_out/index.php' => 'Terminal OUT',
+    'modules/reports/daily.php' => 'Daily Report',
+    'modules/reports/hourly.php' => 'Hourly Report',
+    'modules/reports/weekly.php' => 'Weekly Report',
+    'modules/reports/monthly.php' => 'Monthly Report',
+    'modules/reports/yearly.php' => 'Yearly Report'
+];
+foreach ($critical_pages as $page => $description) {
+    $exists = file_exists($page);
+    echo "<strong>{$description}:</strong> " . ($exists ? "✅ {$page}" : "❌ Missing") . "<br>";
+}
+echo "<br>";
+
 // Final Summary
 echo "<hr>";
 echo "<h2>📊 Test Summary</h2>";
@@ -127,10 +160,19 @@ echo "<h3 style='color: #155724; margin-top: 0;'>✅ Deployment Status</h3>";
 echo "<p style='color: #155724;'><strong>If all tests above show ✅, your system is fully operational!</strong></p>";
 echo "<p style='color: #155724;'>You can now login at: <a href='login.php' style='color: #0056b3;'><strong>login.php</strong></a></p>";
 echo "<p style='color: #155724;'><strong>Default credentials:</strong><br>Username: admin<br>Password: Admin@123</p>";
+echo "<br>";
+echo "<p style='color: #155724;'><strong>Available Pages After Login:</strong></p>";
+echo "<ul style='color: #155724;'>";
+echo "<li><strong>Dashboard</strong> - Overview and real-time statistics</li>";
+echo "<li><strong>Terminal IN</strong> - Record bus arrivals (Super Admin & Terminal IN operators)</li>";
+echo "<li><strong>Terminal OUT</strong> - Record bus departures (Super Admin & Terminal OUT operators)</li>";
+echo "<li><strong>Reports</strong> - View all reports (Super Admin & Report Viewers)</li>";
+echo "<li><strong>Administration</strong> - Manage users, routes, buses (Super Admin only)</li>";
+echo "</ul>";
 echo "</div>";
 
 echo "<br>";
 echo "<div style='background: #fff3cd; padding: 15px; border-radius: 5px; border: 1px solid #ffeeba;'>";
-echo "<p style='color: #856404; margin: 0;'><strong>⚠️ Security Notice:</strong> Delete this test file (test_connection.php) before going to production!</p>";
+echo "<p style='color: #856404; margin: 0;'><strong>⚠️ Security Notice:</strong> Delete this test file (test_connection.php) and fix_password.php before going to production!</p>";
 echo "</div>";
 ?>

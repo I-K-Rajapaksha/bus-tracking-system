@@ -3,8 +3,17 @@
  * Common functions and utilities
  */
 
-// Auto-dismiss alerts after 5 seconds
+// Initialize Bootstrap components on page load
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all dropdowns
+    const dropdownElementList = document.querySelectorAll('.dropdown-toggle');
+    const dropdownList = [...dropdownElementList].map(dropdownToggleEl => new bootstrap.Dropdown(dropdownToggleEl));
+    
+    // Initialize all tooltips
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    
+    // Auto-dismiss alerts after 5 seconds
     setTimeout(function() {
         const alerts = document.querySelectorAll('.alert');
         alerts.forEach(function(alert) {
@@ -12,7 +21,23 @@ document.addEventListener('DOMContentLoaded', function() {
             bsAlert.close();
         });
     }, 5000);
+    
+    // Highlight active nav item
+    highlightActiveNavItem();
 });
+
+// Highlight active navigation item
+function highlightActiveNavItem() {
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && currentPath.includes(href.split('/').pop())) {
+            link.classList.add('active');
+        }
+    });
+}
 
 // Confirm before delete
 function confirmDelete(message) {

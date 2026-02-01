@@ -25,7 +25,7 @@
             <a class="navbar-brand" href="<?php echo SITE_URL; ?>/dashboard.php">
                 <i class="fas fa-bus"></i> <?php echo APP_NAME; ?>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -54,27 +54,25 @@
                     
                     <?php if (hasRole([ROLE_SUPER_ADMIN, ROLE_REPORT_VIEWER])): ?>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="reportsDropdown" role="button" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="reportsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-chart-bar"></i> Reports
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" aria-labelledby="reportsDropdown">
                             <li><a class="dropdown-item" href="<?php echo SITE_URL; ?>/modules/reports/hourly.php">Hourly Report</a></li>
                             <li><a class="dropdown-item" href="<?php echo SITE_URL; ?>/modules/reports/daily.php">Daily Report</a></li>
                             <li><a class="dropdown-item" href="<?php echo SITE_URL; ?>/modules/reports/weekly.php">Weekly Report</a></li>
                             <li><a class="dropdown-item" href="<?php echo SITE_URL; ?>/modules/reports/monthly.php">Monthly Report</a></li>
                             <li><a class="dropdown-item" href="<?php echo SITE_URL; ?>/modules/reports/yearly.php">Yearly Report</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="<?php echo SITE_URL; ?>/modules/reports/summary.php">Summary Report</a></li>
                         </ul>
                     </li>
                     <?php endif; ?>
                     
                     <?php if (hasRole(ROLE_SUPER_ADMIN)): ?>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-cog"></i> Administration
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" aria-labelledby="adminDropdown">
                             <li><a class="dropdown-item" href="<?php echo SITE_URL; ?>/modules/admin/users.php"><i class="fas fa-users"></i> User Management</a></li>
                             <li><a class="dropdown-item" href="<?php echo SITE_URL; ?>/modules/master_data/routes.php"><i class="fas fa-route"></i> Route Management</a></li>
                             <li><a class="dropdown-item" href="<?php echo SITE_URL; ?>/modules/master_data/buses.php"><i class="fas fa-bus"></i> Bus Registration</a></li>
@@ -87,10 +85,10 @@
                 
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-user"></i> <?php echo sanitize($_SESSION['full_name']); ?>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                             <li><a class="dropdown-item" href="<?php echo SITE_URL; ?>/profile.php">
                                 <i class="fas fa-user-circle"></i> My Profile
                             </a></li>

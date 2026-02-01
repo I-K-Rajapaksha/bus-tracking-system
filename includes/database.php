@@ -18,12 +18,22 @@ class Database {
      * Constructor - Establish database connection
      */
     public function __construct() {
-        $dsn = "mysql:host={$this->host};dbname={$this->dbname};charset={$this->charset}";
+        // Add port to DSN if specified
+        $port = defined('DB_PORT') && DB_PORT ? ";port=" . DB_PORT : "";
+        $dsn = "mysql:host={$this->host}{$port};dbname={$this->dbname};charset={$this->charset}";
+        
         $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES => false,
         ];
+        
+        // Enable SSL for Azure MySQL (required for secure transport)
+        if (getenv('WEBSITE_SITE_NAME')) {
+            // Running on Azure - enable SSL
+            $options[PDO::MYSQL_ATTR_SSL_CA] = true;
+            $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+        }
         
         try {
             $this->conn = new PDO($dsn, $this->user, $this->pass, $options);

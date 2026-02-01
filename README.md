@@ -506,10 +506,10 @@ Copyright © 2026 Makumbura Multimodal Center. All rights reserved.
 
 ## Credits
 
-**Developed by:** [Your Company Name]  
-**Project Manager:** [Name]  
-**Lead Developer:** [Name]  
-**Database Design:** [Name]
+**Developed by:** Makumbura Multimodal Center - Kottawa  
+**Project Manager:** Nalaka Dissanayaka  
+**Lead Developer:** M.I.K.Rajapaksha  
+**Database Design:** M.I.K.Rajapaksha
 
 ---
 
